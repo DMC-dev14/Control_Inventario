@@ -1,99 +1,164 @@
 <!doctype html>
-<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalogo | PremiumParts</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <style>
+      .product-card {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.12);
+      }
+
+      .product-media {
+        position: relative;
+        height: 220px;
+        background: #f3f6f9;
+      }
+
+      .product-media img,
+      .product-media .placeholder {
+        width: 100%;
+        height: 100%;
+      }
+      /* .category-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        font-weight: 600;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.75rem;
+      } */
+      .glass-badge {
+        background-color: rgba(255, 255, 255, 0.65) !important;
+        backdrop-filter: blur(8px);
+      }
+    </style>
   </head>
-
-  <body class="catalog-page font-['Manrope',sans-serif] text-gray-900 bg-white">
-      <!--Navbar -->
-    <nav class="max-w-[96%] mx-auto mt-3 md:mt-6 px-6 py-3 bg-[#123E6B] rounded-full relative z-30">
-  <div class="flex items-center justify-between">
-    <a class="flex items-center font-bold text-lg" th:href="@{/}">
-      <img class="absolute left-5 top-1/2 -translate-y-1/2 h-40 w-auto rounded-lg object-contain pointer-events-none z-10" th:src="@{/img/logo.png}" alt="Bike" />
-    </a>
-
-    <button
-      type="button"
-      onclick="document.getElementById('navbarContent').classList.toggle('hidden')"
-      class="lg:hidden p-2 rounded-md text-white hover:bg-slate-700 relative z-40"
-      aria-controls="navbarContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
+  <body class="catalog-page">
+    <nav
+      class="navbar navbar-expand-lg navbar-light py-md-3 mt-md-3 mx-md-3 px-md-4 rounded-pill"
     >
-      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
-
-    <div class="hidden lg:flex items-center gap-8 relative z-20">
-      <ul class="flex items-center gap-2 uppercase bg-white rounded-full px-3 py-1 text-xs tracking-wide font-semibold">
-        <li class="px-3 py-1">
-          <a class="text-gray-800 hover:text-emerald-600" th:href="@{/page}">Inicio</a>
-        </li>
-        <li class="px-3 py-1">
-          <a class="text-gray-800 hover:text-emerald-600" th:href="@{/catalogo}">Catalogo</a>
-        </li>
-        <li class="pl-2 border-l border-gray-200 flex items-center">
-          <a class="text-xl text-gray-800 hover:text-yellow-500 cursor-pointer flex items-center" href="#">
-            <ion-icon name="cart-outline"></ion-icon>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="navbarContent" class="hidden lg:hidden mt-3 pt-3 border-t border-slate-800 relative z-40">
-    <ul class="flex flex-col gap-1 uppercase text-xs tracking-wide font-semibold bg-white rounded-2xl p-2">
-      <li>
-        <a class="block px-3 py-2 rounded-lg text-gray-800 hover:bg-emerald-50" th:href="@{/page}">Inicio</a>
-      </li>
-      <li>
-        <a class="block px-3 py-2 rounded-lg text-gray-800 hover:bg-emerald-50" th:href="@{/catalogo}">Catalogo</a>
-      </li>
-      <li>
-        <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-800 bg-amber-50 hover:bg-amber-100" href="#">
-          <ion-icon name="cart-outline" class="text-lg"></ion-icon>
-          Carrito
+      <div class="container px-4">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center fw-bold fs-4" href="#">
+          <ion-icon name="car-sport" class="me-2"></ion-icon>
+          Premium Parts
         </a>
-      </li>
-    </ul>
-  </div>
-</nav>
 
-    <main class="max-w-6xl mx-auto px-4 py-8 md:py-12">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+        <!-- Toggle button for mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <!-- Main links -->
+          <ul
+            class="navbar-nav mx-auto mb-2 mb-lg-0 text-uppercase bg-white rounded"
+            style="font-size: 0.75rem; letter-spacing: 0.05em; font-weight: 600"
+          >
+            <li class="nav-item mx-2">
+              <a class="nav-link text-dark" th:href="@{/page}">Inicio</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link text-dark" th:href="@{/catalogo}">Catalogo</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link text-dark" th:href="@{/page#contacto}"
+                >Contacto</a
+              >
+            </li>
+          </ul>
+
+          <!-- Actions -->
+          <div
+            class="d-flex align-items-center text-uppercase"
+            style="font-size: 0.75rem; letter-spacing: 0.05em; font-weight: 600"
+          >
+            <!-- <a
+              href="#"
+              class="text-dark text-decoration-none me-4 d-flex align-items-center"
+            >
+              <ion-icon name="person-outline" class="me-1"></ion-icon>
+              Ingresar
+            </a>
+            <a
+              href="#"
+              class="btn btn-dark rounded-1 px-4 py-2 d-flex align-items-center text-uppercase"
+              style="font-size: 0.75rem; font-weight: 600"
+            >
+              <ion-icon name="person-add-outline" class="me-1"></ion-icon>
+              Registrarse
+            </a> -->
+            <a class="btn p-2 ms-2 fs-4">
+              <ion-icon name="cart-outline"></ion-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="container py-4 py-lg-5">
+      <div
+        class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4"
+      >
         <div>
-          <h2 class="text-xl font-bold mb-1">Catalogo de productos</h2>
-          <p class="text-gray-500 mb-0">
-            <span th:text="${#lists.size(filtroMejorado)}">0</span> productos disponibles
+          <h2 class="h4 fw-bold mb-1">Catalogo de productos</h2>
+          <p class="text-muted mb-0">
+            <span th:text="${#lists.size(filtroMejorado)}">0</span> productos
+            disponibles
           </p>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="text-gray-500 text-sm">Ordenar por</span>
-          <div class="relative">
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-muted small">Ordenar por</span>
+          <div class="dropdown">
             <button
+              class="btn btn-sm btn-outline-secondary dropdown-toggle text-muted"
               type="button"
-              onclick="document.getElementById('sortMenu').classList.toggle('hidden')"
-              class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 flex items-center gap-1 text-gray-600 hover:bg-gray-50"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
               Seleccionar
-              <ion-icon name="chevron-down-outline"></ion-icon>
             </button>
-            <ul id="sortMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1 list-none">
+            <ul class="dropdown-menu">
               <li>
                 <a
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  class="dropdown-item"
                   th:href="@{/catalogo(ordenP='asc', q=${q}, categoriaId=${categoriaId})}"
                   href="#"
                   >Precio menor</a
@@ -101,7 +166,7 @@
               </li>
               <li>
                 <a
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  class="dropdown-item"
                   th:href="@{/catalogo(ordenP='desc', q=${q}, categoriaId=${categoriaId})}"
                   href="#"
                   >Precio mayor</a
@@ -109,7 +174,7 @@
               </li>
               <li>
                 <a
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  class="dropdown-item"
                   th:href="@{/catalogo(ordenP='stock', q=${q}, categoriaId=${categoriaId})}"
                   href="#"
                   >Stock disponible</a
@@ -117,7 +182,7 @@
               </li>
               <li>
                 <a
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  class="dropdown-item"
                   th:href="@{/catalogo(q=${q}, categoriaId=${categoriaId})}"
                   href="#"
                   >Mostrar original</a
@@ -127,15 +192,14 @@
           </div>
         </div>
       </div>
-
-      <form class="grid grid-cols-1 md:grid-cols-12 gap-2 mt-3 mb-8" th:action="@{/catalogo}" method="get">
-        <div class="md:col-span-5">
-          <div class="flex items-stretch rounded-lg border border-gray-300 overflow-hidden">
-            <span class="flex items-center px-3 bg-gray-50 text-gray-500 border-r border-gray-300">
-              <ion-icon name="search-outline"></ion-icon>
+      <form class="row g-2 mt-3 mb-5" th:action="@{/catalogo}" method="get">
+        <div class="col-12 col-md-5">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-search"></i>
             </span>
             <input
-              class="flex-1 px-3 py-2 text-sm outline-none"
+              class="form-control"
               id="buscarProducto"
               name="q"
               th:value="${q}"
@@ -146,8 +210,8 @@
             <datalist id="sugerenciaProductos"></datalist>
           </div>
         </div>
-        <div class="md:col-span-4">
-          <select class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500" name="categoriaId">
+        <div class="col-12 col-md-4">
+          <select class="form-select" name="categoriaId">
             <option value="">Todas las categorias</option>
             <option
               th:each="c : ${categorias}"
@@ -157,31 +221,30 @@
             ></option>
           </select>
         </div>
-        <div class="md:col-span-3">
-          <button class="w-full bg-emerald-600 hover:bg-emerald-700 transition text-white font-semibold rounded-lg px-4 py-2 text-sm" type="submit">
+        <div class="col-12 col-md-3">
+          <button class="btn btn-success w-100" type="submit">
             Filtrar resultados
           </button>
         </div>
       </form>
-
       <!-- CONTENEDOR DE CARDS DE LOS PRODUCTOS -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <div th:each="p : ${filtroMejorado}">
-          <div class="bg-white rounded-2xl shadow-[0_16px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] hover:-translate-y-1 transition-all overflow-hidden flex flex-col h-full">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        <div class="col" th:each="p : ${filtroMejorado}">
+          <div class="card product-card h-100">
             <!-- CATEGORIA -->
-            <div class="relative h-[220px] bg-[#f3f6f9]">
+            <div class="product-media">
               <img
                 th:if="${p.imagen != null}"
                 th:src="'data:image/webp;base64,' + ${p.imagenBase64}"
-                class="w-full h-full object-cover"
+                class=""
                 th:alt="${p.nombre}"
               />
-              <div th:unless="${p.imagen != null}" class="w-full h-full flex items-center justify-center text-gray-400">
-                <ion-icon name="image-outline" style="font-size: 2.5rem"></ion-icon>
+              <div th:unless="${p.imagen != null}" class="placeholder">
+                <i class="bi bi-image fs-1"></i>
               </div>
               <span
                 th:if="${p.stock > 20}"
-                class="absolute top-0 left-0 m-3 bg-emerald-600 text-white shadow-sm rounded-full px-3 py-2 uppercase font-bold"
+                class="position-absolute top-0 start-0 m-3 badge text-bg-success shadow-sm rounded-pill px-3 py-2 z-1 text-uppercase fw-bold bg-success"
                 style="font-size: 0.7rem; letter-spacing: 0.5px"
                 th:text="${p.categoria.nombre}"
               >
@@ -189,42 +252,53 @@
               </span>
               <span
                 th:if="${p.stock <= 20 && p.stock > 10}"
-                class="absolute top-0 left-0 m-3 bg-blue-600 text-white shadow-sm rounded-full px-3 py-2 uppercase font-bold"
+                class="position-absolute top-0 start-0 m-3 badge text-bg-primary shadow-sm rounded-pill px-3 py-2 z-1 text-uppercase fw-bold bg-primary"
                 style="font-size: 0.7rem; letter-spacing: 0.5px"
                 th:text="${p.categoria.nombre}"
-              ></span>
+              >
+              </span>
               <span
                 th:if="${p.stock <= 10}"
-                class="absolute top-0 left-0 m-3 bg-red-600 text-white shadow-sm rounded-full px-3 py-2 uppercase font-bold"
+                class="position-absolute top-0 start-0 m-3 badge text-bg-danger shadow-sm rounded-pill px-3 py-2 z-1 text-uppercase fw-bold bg-danger"
                 style="font-size: 0.7rem; letter-spacing: 0.5px"
                 th:text="${p.categoria.nombre}"
               ></span>
             </div>
-            <!-- NOMBRE, DESCRIPCION Y PRECIO DEL PRODUCTO -->
-            <div class="p-4 flex flex-col flex-1">
-              <h5 class="font-semibold text-base mb-1" th:text="${p.nombre}">
+            <!-- NOMBRE, DESCRIPCION Y PRECOIO DEL PRODUCTO -->
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title product-title" th:text="${p.nombre}">
                 Nombre del producto
               </h5>
-              <p class="text-gray-500 text-sm mb-4 line-clamp-3" th:text="${p.descripcion}">
+              <p
+                class="card-text text-muted small line-clamp-3"
+                th:text="${p.descripcion}"
+              >
                 Descripcion del producto.
               </p>
-              <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+              <div
+                class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center"
+              >
                 <div>
-                  <div class="text-gray-400 text-xs">Precio</div>
-                  <div class="font-bold text-lg" th:text="|S/ ${p.precio}|"></div>
+                  <div class="text-muted small">Precio</div>
+                  <div class="price-value" th:text="|S/ ${p.precio}|"></div>
                 </div>
                 <div>
-                  <div class="flex items-center bg-gray-100 rounded-full p-1 contador-producto">
+                  <div
+                    class="d-flex align-items-center bg-light rounded-pill p-1 contador-producto"
+                  >
                     <button
                       type="button"
-                      class="h-7 w-7 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-white btn-restar"
+                      class="btn btn-sm btn-outline-secondary rounded-circle btn-restar"
                     >
                       -
                     </button>
-                    <span class="px-3 font-bold cantidad-producto">0</span>
+                    <span class="px-3 fw-bold cantidad-producto">0</span>
                     <button
                       type="button"
-                      class="h-7 w-7 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-white btn-sumar"
+                      class="btn btn-sm btn-outline-secondary rounded-circle btn-sumar"
+                      th:data-id="${p.id}"
+                      th:data-nombre="${p.nombre}"
+                      th:data-precio="${p.precio}"
                     >
                       +
                     </button>
@@ -236,17 +310,15 @@
         </div>
       </div>
     </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-white pt-12 pb-6">
-      <div class="max-w-6xl mx-auto px-4 text-center md:text-left">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container text-center text-md-left">
+        <div class="row text-center text-lg-left text-md-left">
           <!-- Columna 1: Logo + descripción -->
-          <div>
-            <h5 class="uppercase mb-4 font-bold text-emerald-400">
-              <ion-icon name="car-sport"></ion-icon> Premium Parts
+          <div class="col-md-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 font-weight-bold text-primary">
+              <i class="fa-solid fa-car bg-body"></i> Premium Parts
             </h5>
-            <p class="text-gray-300">
+            <p class="text-white mt-2 p-3">
               En Premium Parts trabajamos con repuestos de alto rendimiento,
               seleccionados para conservar la potencia, precisión y elegancia
               que distingue a tu vehículo.
@@ -254,165 +326,162 @@
           </div>
 
           <!-- Columna 2: Menú -->
-          <div>
-            <h5 class="uppercase mb-3 font-bold text-emerald-400">Menú</h5>
-            <p class="mb-2">
-              <a href="#" class="text-white hover:text-emerald-400 no-underline">Inicio</a>
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 class="mb-3 text-uppercase text-primary">Menú</h5>
+            <p>
+              <a href="#" class="text-white" style="text-decoration: none"
+                >Inicio</a
+              >
             </p>
-            <p class="mb-2">
-              <a href="#catalogo" class="text-white hover:text-emerald-400 no-underline">Catálogo</a>
+            <p>
+              <a
+                href="#catalogo"
+                class="text-white"
+                style="text-decoration: none"
+                >Catálogo</a
+              >
             </p>
-            <p class="mb-2">
-              <a href="#contacto" class="text-white hover:text-emerald-400 no-underline">Contacto</a>
+            <p>
+              <a
+                href="#contacto"
+                class="text-white"
+                style="text-decoration: none"
+                >Contacto</a
+              >
             </p>
-            <p class="mb-2">
-              <a href="#" class="text-white hover:text-emerald-400 no-underline">Mi cuenta</a>
+            <p>
+              <a href="#" class="text-white" style="text-decoration: none"
+                >Mi cuenta</a
+              >
             </p>
           </div>
 
           <!-- Columna 3: Dirección y contacto -->
-          <div>
-            <h5 class="uppercase mb-3 font-bold text-emerald-400">Dirección y contacto</h5>
-            <p class="mb-2 text-gray-300">
-              <ion-icon name="location-outline" class="mr-1"></ion-icon> Av. Mariscal Nieto 198,
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 class="text-uppercase mb-3 text-primary">
+              Dirección y contacto
+            </h5>
+            <p>
+              <i class="fas fa-map-marker-alt mr-3"></i> Av. Mariscal Nieto 198,
               Urb. El Pino - San Luis, Lima.
             </p>
-            <p class="mb-2 text-gray-300"><ion-icon name="mail-outline" class="mr-1"></ion-icon> premiumpartspe@gmail.com</p>
-            <p class="mb-2 text-gray-300"><ion-icon name="call-outline" class="mr-1"></ion-icon> 990 204 933</p>
+            <p><i class="fas fa-envelope mr-3"></i> premiumpartspe@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> 990 204 933</p>
           </div>
 
           <!-- Columna 4: Redes sociales + Horario -->
-          <div>
-            <h5 class="uppercase mb-3 font-bold text-emerald-400">Redes Sociales</h5>
-            <ul class="flex items-center justify-center md:justify-start gap-4 mb-4 list-none p-0">
-              <li>
-                <a href="#" class="text-white hover:text-emerald-400" target="_blank"><ion-icon name="logo-facebook" style="font-size: 24px"></ion-icon></a>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-3 text-primary">Redes Sociales</h5>
+            <ul class="list-unstyled list-inline">
+              <li class="list-inline-item">
+                <a href="#" class="text-white" target="_blank"
+                  ><i class="fab fa-facebook" style="font-size: 24px"></i
+                ></a>
               </li>
-              <li>
-                <a href="#" class="text-white hover:text-emerald-400" target="_blank"><ion-icon name="logo-instagram" style="font-size: 24px"></ion-icon></a>
+              <li class="list-inline-item">
+                <a href="#" class="text-white" target="_blank"
+                  ><i class="fab fa-instagram" style="font-size: 24px"></i
+                ></a>
               </li>
-              <li>
-                <a href="#" class="text-white hover:text-emerald-400" target="_blank"><ion-icon name="logo-twitter" style="font-size: 24px"></ion-icon></a>
+              <li class="list-inline-item">
+                <a href="#" class="text-white" target="_blank"
+                  ><i class="fab fa-twitter" style="font-size: 24px"></i
+                ></a>
               </li>
-              <li>
-                <a href="#" class="text-white hover:text-emerald-400" target="_blank"><ion-icon name="logo-youtube" style="font-size: 24px"></ion-icon></a>
+              <li class="list-inline-item">
+                <a href="#" class="text-white" target="_blank"
+                  ><i class="fab fa-youtube" style="font-size: 24px"></i
+                ></a>
               </li>
             </ul>
 
-            <h5 class="uppercase mb-3 mt-4 font-bold text-emerald-400">Horario de atención</h5>
-            <p class="mb-2 text-gray-300"><ion-icon name="time-outline" class="mr-1"></ion-icon> Lun a Vie: 9 am - 6 pm</p>
-            <p class="mb-2 text-gray-300"><ion-icon name="time-outline" class="mr-1"></ion-icon> Sáb: 9 am - 2 pm</p>
+            <h5 class="text-uppercase mb-3 mt-4 text-primary">
+              Horario de atención
+            </h5>
+            <p><i class="fas fa-clock mr-3"></i> Lun a Vie: 9 am - 6 pm</p>
+            <p><i class="fas fa-clock mr-3"></i> Sáb: 9 am - 2 pm</p>
           </div>
         </div>
 
-        <hr class="my-6 border-gray-700" />
+        <hr class="mb-4" />
 
-        <div>
-          <p class="text-center text-gray-300 text-sm">
-            © <span id="year"></span> Premium Parts. Todos los derechos
-            reservados.
-            <a href="" class="no-underline text-white">
-              <strong>Política de privacidad | Términos de uso</strong>
-            </a>
-          </p>
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <p class="text-center">
+              © <span id="year"></span> Premium Parts. Todos los derechos
+              reservados.
+              <a href="" style="text-decoration: none">
+                <strong>Política de privacidad | Términos de uso</strong>
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
 
-    <!-- MODALES PARA REGISTRO Y LOGIN -->
-    <!-- MODAL LOGIN -->
-    <div id="modalLogin" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 p-4">
-      <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div class="flex items-center justify-between px-5 py-4 bg-emerald-600 text-white">
-          <h5 class="font-semibold text-lg" id="modalLoginLabel">Iniciar sesión</h5>
-          <button type="button" onclick="closeModal('modalLogin')" class="text-white text-xl leading-none">&times;</button>
-        </div>
-        <div class="p-5">
-          <div class="mb-4">
-            <label for="loginEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
-            <input type="email" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" id="loginEmail" />
+    <!-- MODAL CARRITO -->
+    <!-- EL LLENADO DEL CARRITO SE REALIZA CON JAVASCRIPT -->
+    <div
+      class="modal fade"
+      id="modalCarrito"
+      tabindex="-1"
+      aria-labelledby="modalCarritoLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="modalCarritoLabel">
+              <i class="bi bi-cart me-2"></i>Tu Carrito
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
-          <div class="mb-2">
-            <label for="loginPassword" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-            <input type="password" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" id="loginPassword" />
+          <div class="modal-body p-4">
+            <div id="cartItemsContainer">
+              <!-- JS renderiza aquí los productos agregados al carrito -->
+            </div>
           </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-4 border-t border-gray-100">
-          <a href="#" onclick="closeModal('modalLogin'); openModal('modalRegistro'); return false;" class="text-sm text-emerald-600 hover:underline">¿No tienes cuenta? Regístrate</a>
-          <button type="button" class="bg-emerald-600 hover:bg-emerald-700 transition text-white font-medium rounded-lg px-4 py-2 text-sm">Ingresar</button>
+          <div
+            class="modal-footer d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <strong>Total: </strong><span id="cartTotal">S/ 0.00</span>
+            </div>
+            <!-- Este boton nos redirige al whatsapp con el mensaje de los prodcutos agregados al carrito, la logica del funcionamiento se encuentra en el archivo catalogo.js -->
+            <button
+              type="button"
+              class="btn btn-success"
+              id="btnWhatsApp"
+              disabled
+            >
+              <i class="bi bi-whatsapp me-1"></i>
+              Pedir por WhatsApp
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- MODAL REGISTRO -->
-    <div id="modalRegistro" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 p-4">
-      <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div class="flex items-center justify-between px-5 py-4 bg-emerald-600 text-white">
-          <h5 class="font-semibold text-lg" id="modalRegistroLabel">Crear cuenta</h5>
-          <button type="button" onclick="closeModal('modalRegistro')" class="text-white text-xl leading-none">&times;</button>
-        </div>
-        <div class="p-5">
-          <div class="mb-4">
-            <label for="regNombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
-            <input type="text" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" id="regNombre" />
-          </div>
-          <div class="mb-4">
-            <label for="regEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
-            <input type="email" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" id="regEmail" />
-          </div>
-          <div class="mb-4">
-            <label for="regPassword" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-            <input type="password" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" id="regPassword" />
-          </div>
-          <div class="mb-2">
-            <label for="regPassword2" class="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
-            <input type="password" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" id="regPassword2" />
-          </div>
-        </div>
-        <div class="flex items-center justify-end gap-2 px-5 py-4 border-t border-gray-100">
-          <button type="button" onclick="closeModal('modalRegistro')" class="bg-gray-200 hover:bg-gray-300 transition text-gray-800 font-medium rounded-lg px-4 py-2 text-sm">Cancelar</button>
-          <button type="button" class="bg-emerald-600 hover:bg-emerald-700 transition text-white font-medium rounded-lg px-4 py-2 text-sm">Registrarse</button>
-        </div>
-      </div>
-    </div>
-
-    <a href="#" class="fixed bottom-6 right-6 h-11 w-11 flex items-center justify-center rounded-full bg-gray-900 text-white shadow-lg hover:bg-gray-800 transition text-xl" aria-label="Volver al inicio">
+    <a href="#" class="btn-back-top" aria-label="Volver al inicio">
       <ion-icon name="chevron-up-outline"></ion-icon>
     </a>
-
     <script th:src="@{/js/catalogo.js}"></script>
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      function openModal(id) {
-        const modal = document.getElementById(id);
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-      }
-
-      function closeModal(id) {
-        const modal = document.getElementById(id);
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
-
-      document.querySelectorAll("#modalLogin, #modalRegistro").forEach((modal) => {
-        modal.addEventListener("click", (e) => {
-          if (e.target === modal) {
-            closeModal(modal.id);
-          }
-        });
-      });
-
-      document.addEventListener("click", (e) => {
-        const menu = document.getElementById("sortMenu");
-        if (menu && !menu.classList.contains("hidden")) {
-          const wrapper = menu.parentElement;
-          if (!wrapper.contains(e.target)) {
-            menu.classList.add("hidden");
-          }
-        }
-      });
-    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>
