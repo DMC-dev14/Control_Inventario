@@ -1,15 +1,28 @@
-function cargarDatosModal(button) {
-  var id = button.getAttribute('data-id');
-  var nombre = button.getAttribute('data-nombre');
-  var apellido = button.getAttribute('data-apellido');
-  var email = button.getAttribute('data-email');
-  var password = button.getAttribute('data-password');
-  var rol = button.getAttribute('data-rol');
+const abrirModalEditarEmpleado = (boton) => {
+  const modal = document.getElementById("editarEmpleadoModal");
+  if (!modal) return;
 
-  document.getElementById('editarId').value = id;
-  document.getElementById('editarNombre').value = nombre;
-  document.getElementById('editarApellido').value = apellido;
-  document.getElementById('editarEmail').value = email;
-  document.getElementById('editarPassword').value = password;
-  document.getElementById('editarRol').value = rol;
-}
+  const id = boton.getAttribute("data-id");
+  const nombre = boton.getAttribute("data-nombre");
+  const apellido = boton.getAttribute("data-apellido");
+  const email = boton.getAttribute("data-email");
+  const password = boton.getAttribute("data-password");
+  const rol = boton.getAttribute("data-rol");
+
+  document.getElementById("editarEmpleadoId").value = id;
+  document.getElementById("editarEmpleadoNombre").value = nombre;
+  document.getElementById("editarEmpleadoApellido").value = apellido;
+  document.getElementById("editarEmpleadoEmail").value = email;
+  document.getElementById("editarEmpleadoPassword").value = password;
+  document.getElementById("editarEmpleadoRol").value = rol;
+
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+};
+
+const cerrarModalEmpleado = () => {
+  const modal = document.getElementById("editarEmpleadoModal");
+  if (!modal) return;
+  modal.classList.add("hidden");
+  document.body.style.overflow = "";
+};

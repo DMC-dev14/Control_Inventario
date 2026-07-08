@@ -1,18 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap");
 
 :root {
-  --background: #09090b; /* Negro puro / Zinc 950 */
-  --surface: #18181b; /* Zinc 900 (Tarjetas y contenedores) */
-  --text-primary: #fafafa; /* Blanco hueso */
-  --text-secondary: #a1a1aa; /* Gris claro para etiquetas/subtítulos */
-
-  --primary: #ffffff; /* Blanco para botones de alto contraste */
-  --primary-hover: #e4e4e7; /* Blanco grisáceo para hover */
-  --accent: #2dd4bf; /* Teal brillante (Datos/Métricas) */
-  --accent-muted: #115e59; /* Teal oscuro para fondos contenedores */
-
-  --border: #27272a; /* Borde sutil para separar tarjetas */
-  --shadow: none; /* En modo oscuro se prefieren bordes en vez de sombras */
+  --background: #09090b;
+  /* Negro puro / Zinc 950 */
+  --surface: #18181b;
+  /* Zinc 900 (Tarjetas y contenedores) */
+  --text-primary: #fafafa;
+  /* Blanco hueso */
+  --text-secondary: #a1a1aa;
+  /* Gris claro para etiquetas/subtítulos */
+  --primary: #ffffff;
+  /* Blanco para botones de alto contraste */
+  --primary-hover: #e4e4e7;
+  /* Blanco grisáceo para hover */
+  --accent: #2dd4bf;
+  /* Teal brillante (Datos/Métricas) */
+  --accent-muted: #115e59;
+  /* Teal oscuro para fondos contenedores */
+  --border: #27272a;
+  /* Borde sutil para separar tarjetas */
+  --shadow: none;
+  /* En modo oscuro se prefieren bordes en vez de sombras */
 }
 
 body {
@@ -25,7 +33,6 @@ body {
   display: grid;
   grid-template-columns: 16rem 1fr;
   grid-template-rows: auto 1fr;
-
   /* grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto repeat(4, 1fr); */
   gap: 10px;
